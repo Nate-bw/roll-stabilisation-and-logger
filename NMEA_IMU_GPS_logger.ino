@@ -244,7 +244,7 @@ void GPS_data(){
   if (fix.valid.location) {
     Serial.print("\nvalid location!");
         
-    date += String(fix.dateTime.date, DEC); 
+    date += String(fix.dateTime.date, DEC);       //store date variables
     date += ('-');
     date += String(fix.dateTime.month, DEC); 
     date += ("-20");
@@ -255,7 +255,7 @@ void GPS_data(){
 
 
 
-    if (fix.dateTime.hours < 10){timeString += "0";}
+    if (fix.dateTime.hours < 10){timeString += "0";}            //Store time variables
     int GPS_hour = fix.dateTime.hours + 1;
     timeString += String(GPS_hour, DEC);
     timeString += ":";
@@ -268,17 +268,17 @@ void GPS_data(){
     timeString += String(fix.dateTime.seconds, DEC);
     Serial.print("\nTimeString: " + timeString);
 
-    locString += String(fix.latitude(), 6 ); // floating-point display
+    locString += String(fix.latitude(), 6 ); // floating-point display          //Store lat + lon
    locString += ( ',' );
      locString += String(fix.longitude(), 6 ); // floating-point display
     Serial.print("\nlocString: " + locString);
     
     
     if (fix.valid.satellites)                                                                                                                                                                                                       
-    gnd_spd = String( (fix.speed_kph(), 6)/3.6 );
+    gnd_spd = String(fix.speed_kph());                               // storespeed
     Serial.print("\ngnd_spd: " + gnd_spd);
 
-    gps_alt = String(fix.altitude()); 
+    gps_alt = String(fix.altitude());                                 // store gps alt
     Serial.print("\ngps_alt: " + gps_alt);
     Serial.print("satelites: ");
     Serial.print( fix.satellites );
@@ -291,7 +291,7 @@ void GPS_data(){
 
 void logger()
 {
-   File dataFile = SD.open(fileName, FILE_WRITE);
+   File dataFile = SD.open(fileName, FILE_WRITE);     //append data to a string
     dataString = "";
     dataString += date;
     dataString += ",";
@@ -308,7 +308,7 @@ void logger()
     dataString += (angle_pitch);
     Serial.println("\n\ndataString: " + dataString);
 
-dataFile.println(dataString);
+dataFile.println(dataString);                          //print data to SD card
 
 dataFile.close();
   
